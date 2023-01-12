@@ -1,11 +1,79 @@
 {% extends 'shared/MainLayout.html' %}
+{% load static %}
 
 {% block addheaderRefrences %}
 {% endblock addheaderRefrences %}
 
 {% block content %}
+<br>
+<div class="container overflow-hidden">
+    <div class="row">
+        <div class="p-3 border bg-light">
+            <div id="candlestickchart">
+                <div id="chart_id"></div>
+            </div>
+        </div>
+    </div>
+    <br>
+    
+
+
+    <div class="row">
+        <div class="col-6" style="padding-left: 0 ;">
+            <div class="card">
+                <h5 class="card-header">Robot</h5>
+                <div class="card-body" style="min-height: 150px;">
+                    <h5 class="card-title"></h5>
+                    <div class="row">
+                        <div class="col-3">
+                        <img src="{% static 'myApp/img/Robot.svg' %}" class="" alt="Robot" 
+                        style="height:auto; width:100px; padding-right: 0;">
+                        </div>
+                        <div class="col-9">
+                            <p id="RobotOrder"></p>
+                            <p id="coinHead" style="visibility: hidden;">
+                                I flip a coin and it's <b>Head</b>,
+                                So I think if we don't have an open position right now, we should <b>buy</b> and if we have a buy position before, we should keep it.
+                            </p>
+
+                            <p id="coinTail" style="visibility: hidden;">
+                                I flip a coin and it's <b>Tail</b>,
+                                So I think if we have an open position right now, we should <b>sell</b> it and if we don't have any open position, we should wait for the next candle. 
+                            </p>
+
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+        </div>
+        
+        <div class="col-6" style="padding-right: 0 ;">
+            <div class="card">
+                <h5 class="card-header">User</h5>
+                <div class="card-body" style="min-height: 150px;">
+                    <div class="row">
+                        <h5 class="card-title"></h5>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-danger"style="--bs-btn-padding-y: .005rem; --bs-btn-padding-x: 2.5rem; --bs-btn-font-size: 1.75rem;">Sell</button>
+                            <button type="button" class="btn btn-success" style="--bs-btn-padding-y: .005rem; --bs-btn-padding-x: 2.5rem; --bs-btn-font-size: 1.75rem; margin-left: 50px; ;">Buy</button>
+                        </div>
+                    </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
 
 
 {% block addfooterRefrences %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="{% static 'myApp/js/tradingView/lightWeightTradingView.js' %}" ></script>
+<script src="{% static 'myApp/js/Chart.js' %}" ></script>
+<script src="{% static 'myApp/js/BinanceAPI.js' %}" ></script>
+
+<script src="{% static 'myApp/js/Order/UserOrder.js' %}" ></script>
+<script src="{% static 'myApp/js/Order/RobotOrder.js' %}" ></script>
+
 {% endblock addfooterRefrences %}
