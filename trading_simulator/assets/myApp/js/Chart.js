@@ -1,3 +1,5 @@
+
+
 var chart = LightweightCharts.createChart(document.getElementById("chart_id"), {
 	width: $("#chart_id").width(),  //865,
 	height: 450,  //500,
@@ -44,7 +46,12 @@ var chart = LightweightCharts.createChart(document.getElementById("chart_id"), {
 		},
 	},
 	localization: {
-		dateFormat: 'yyyy/MM/dd',
+		timeFormatter: businessDayOrTimestamp => {
+			// if (LightweightCharts.isBusinessDay(businessDayOrTimestamp)) {
+			// 	return 'bd=' + businessDayOrTimestamp.day + '-' + businessDayOrTimestamp.month + '-' + businessDayOrTimestamp.year;
+			// }else{'ts=' + businessDayOrTimestamp}
+			return timeConverter(businessDayOrTimestamp);
+		},
 	},
 	priceScale: {
 		mode: LightweightCharts.PriceScaleMode.Logarithmic, //logarithm mode
@@ -132,3 +139,20 @@ function exitHandler() {
 
     }
 } 
+/////////////////////////////////////////////////////////////////////////////////////////////
+function timeConverter(UNIX_timestamp){
+	var a = new Date(UNIX_timestamp * 1000);
+	// var a = new Date(UNIX_timestamp * 1000).toUTCString();
+	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+	var year = a.getFullYear();
+	// var month = months[a.getMonth()];
+	var month = a.getUTCMonth()+1; if(month<10){month = '0'+month} 
+	var date = a.getUTCDate(); if(date<10){date = '0'+date} 
+	var hour = a.getUTCHours(); if(hour<10){hour = '0'+hour} 
+	var min = a.getUTCMinutes(); if(min<10){min = '0'+min}
+	var sec = a.getUTCSeconds(); if(sec<10){sec = '0'+sec} 
+
+	var time = date + '-' + month + '-' + year + ' ' + hour + ':' + min + ':' + sec ;
+	var time = year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec ;
+	return time;
+}
